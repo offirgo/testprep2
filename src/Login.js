@@ -14,8 +14,6 @@ function Login(props) {
 				<div className='elementContainer'>{<Link to='/'>Home</Link>}</div>
 			</div>
 			<div className='mainAreaGrid'>
-				<FacebookLogin />
-				<GoogleLogin />
 				<div>user</div>
 			</div>
 			<div className='footerContainer'>

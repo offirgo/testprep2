@@ -1,4 +1,3 @@
-import res from "express/lib/response";
 import React, { useState } from "react";
 import GoogleLogin from "react-google-login";
 
