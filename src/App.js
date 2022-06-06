@@ -1,29 +1,49 @@
 // IMPORTING EXTERNAL DIPENDECIES
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 // IMPORTING COMPONENTS
-import Gmat from "./Gmat";
-import Gre from "./Gre";
-import Sat from "./Sat";
-import Home from "./Home";
-import Login from "./Login";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Signin from "./pages/Signin";
+import Signup from "./pages/Signup";
+import Course from "./pages/Course";
 // IMPORT STYLES
 import "./app.css";
-import "./home.css";
-import "./gmat.css";
-import "./gre.css";
-import "./login.css";
+import "./pages/home.css";
+import "./pages/signin.css";
+import "./components/navbar.css";
+//FIREBASE IMPORTS
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-function App() {
+const auth = getAuth();
+let thisUser;
+
+onAuthStateChanged(auth, (user) => {
+	if (user) {
+		// User is signed in, see docs for a list of available properties
+		// https://firebase.google.com/docs/reference/js/firebase.User
+		thisUser = user;
+	}
+});
+function App({}) {
 	return (
 		<>
 			<div>
+				<Navbar thisUser={thisUser} />
 				<Routes>
-					<Route path='/' exact element={<Home />}></Route>
-					<Route path='/Gmat' exact element={<Gmat />}></Route>
-					<Route path='/gre' exact element={<Gre />}></Route>
-					<Route path='/sat' exact element={<Sat />}></Route>
-					<Route path='/Login' exact element={<Login />}></Route>
+					<Route path='/' element={<Home />}></Route>
+					<Route
+						path='/Signin'
+						element={thisUser ? <Navigate to='/' /> : <Signin />}
+					/>
+					<Route
+						path='/Signup'
+						element={thisUser ? <Navigate to='/' /> : <Signup />}
+					/>
+					<Route
+						path='/course/:id'
+						element={thisUser ? <Course /> : <Navigate to='/Signin' />}
+					/>
 				</Routes>
 			</div>
 		</>
