@@ -2,18 +2,22 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
+const auth = getAuth();
 let thisUser;
 
-function Navbar() {
-	if (thisUser) {
-		console.log(thisUser);
+onAuthStateChanged(auth, (user) => {
+	if (user) {
+		// User is signed in, see docs for a list of available properties
+		// https://firebase.google.com/docs/reference/js/firebase.User
+		thisUser = user;
 	}
-
+});
+function Navbar() {
 	const isLoginPage = false;
 
 	let photo = "https://picsum.photos/200/300";
 	if (thisUser) {
-		photo = "https://picsum.photos/200/300"; //thisUser.photos[0].value;
+		photo = thisUser.photoURL;
 	}
 
 	const logout = async () => {

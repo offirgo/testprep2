@@ -25,11 +25,11 @@ onAuthStateChanged(auth, (user) => {
 		thisUser = user;
 	}
 });
-function App({}) {
+function App() {
 	return (
 		<>
 			<div>
-				<Navbar thisUser={thisUser} />
+				<Navbar />
 				<Routes>
 					<Route path='/' element={<Home />}></Route>
 					<Route
