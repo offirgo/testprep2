@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { firebase } from "../config/firebase";
+
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
 const auth = getAuth();
 let thisUser;
@@ -12,6 +14,7 @@ onAuthStateChanged(auth, (user) => {
 		thisUser = user;
 	}
 });
+
 function Navbar() {
 	const isLoginPage = false;
 
@@ -20,9 +23,16 @@ function Navbar() {
 		photo = thisUser.photoURL;
 	}
 
-	const logout = async () => {
-		await window.open("https://localhost:5000/auth/logout", "_self");
+	const logout = () => {
+		signOut(auth)
+			.then(() => {
+				console.log("user logged out");
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	};
+
 	return (
 		<div className='navbar'>
 			<span className='logo'>

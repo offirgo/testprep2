@@ -13,6 +13,7 @@ import "./pages/home.css";
 import "./pages/signin.css";
 import "./components/navbar.css";
 //FIREBASE IMPORTS
+
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const auth = getAuth();
@@ -32,18 +33,27 @@ function App() {
 				<Navbar />
 				<Routes>
 					<Route path='/' element={<Home />}></Route>
-					<Route
-						path='/Signin'
-						element={thisUser ? <Navigate to='/' /> : <Signin />}
-					/>
-					<Route
-						path='/Signup'
-						element={thisUser ? <Navigate to='/' /> : <Signup />}
-					/>
-					<Route
-						path='/course/:id'
-						element={thisUser ? <Course /> : <Navigate to='/Signin' />}
-					/>
+					{thisUser ? (
+						<Route
+							path='/course/:id'
+							element={thisUser ? <Course /> : <Navigate to='/Signin' />}
+						/>
+					) : (
+						<>
+							<Route
+								path='/Signin'
+								element={thisUser ? <Navigate to='/' /> : <Signin />}
+							/>
+							<Route
+								path='/Signup'
+								element={thisUser ? <Navigate to='/' /> : <Signup />}
+							/>
+							<Route
+								path='/course/:id'
+								element={thisUser ? <Course /> : <Navigate to='/Signin' />}
+							/>
+						</>
+					)}
 				</Routes>
 			</div>
 		</>

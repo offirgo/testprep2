@@ -4,7 +4,7 @@ import { googleProvider } from "../config/authMethods";
 import { fabebookProvider } from "../config/authMethods";
 import { twitterProvider } from "../config/authMethods";
 
-import signInWithFireBase from "../service/auth";
+import signInWithFireBase from "../auth";
 
 import googleIcon from "../images/google.png";
 import facebookIcon from "../images/facebook.png";
