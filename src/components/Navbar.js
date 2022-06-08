@@ -19,6 +19,7 @@ function Navbar() {
 	if (thisUser) {
 		photo = thisUser.photoURL;
 	}
+
 	const logout = async () => {
 		await window.open("https://localhost:5000/auth/logout", "_self");
 	};
