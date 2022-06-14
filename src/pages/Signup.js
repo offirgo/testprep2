@@ -4,7 +4,8 @@ import { googleProvider } from "../config/authMethods";
 import { fabebookProvider } from "../config/authMethods";
 import { twitterProvider } from "../config/authMethods";
 
-import signInWithFireBase from "../auth";
+import { signInWithFireBaseSocial } from "../auth";
+import { signInWithFireBaseMail } from "../auth";
 
 import googleIcon from "../images/google.png";
 import facebookIcon from "../images/facebook.png";
@@ -12,7 +13,7 @@ import twitterIcon from "../images/twitter.png";
 
 function Signup(props) {
 	const handleLoginClick = async (provider) => {
-		const res = await signInWithFireBase(provider);
+		const res = await signInWithFireBaseSocial(provider);
 		console.log(res);
 	};
 

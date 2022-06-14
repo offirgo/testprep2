@@ -1,8 +1,12 @@
-import { getAuth, signInWithPopup } from "firebase/auth";
+import {
+	getAuth,
+	signInWithPopup,
+	createUserWithEmailAndPassword,
+} from "firebase/auth";
 
 const auth = getAuth();
 
-const signInWithFireBase = (provider) => {
+const signInWithFireBaseSocial = (provider) => {
 	signInWithPopup(auth, provider)
 		.then((result) => {
 			// The signed-in user info.
@@ -15,4 +19,20 @@ const signInWithFireBase = (provider) => {
 		});
 };
 
-export default signInWithFireBase;
+export { signInWithFireBaseSocial };
+
+const signInWithFireBaseMail = (email, password) => {
+	createUserWithEmailAndPassword(auth, email, password)
+		.then((userCredential) => {
+			// Signed in
+			const user = userCredential.user;
+			// ...
+		})
+		.catch((error) => {
+			const errorCode = error.code;
+			const errorMessage = error.message;
+			// ..
+		});
+};
+
+export { signInWithFireBaseMail };

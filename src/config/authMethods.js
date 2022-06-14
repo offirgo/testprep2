@@ -1,4 +1,4 @@
-import firebase from "./firebase";
+import { firebaseApp } from "./firebase";
 import { FacebookAuthProvider } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { TwitterAuthProvider } from "firebase/auth";
