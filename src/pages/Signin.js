@@ -4,7 +4,8 @@ import { googleProvider } from "../config/authMethods";
 import { fabebookProvider } from "../config/authMethods";
 import { twitterProvider } from "../config/authMethods";
 
-import signInWithFireBase from "../auth";
+import { signInWithFireBaseSocial } from "../auth";
+import { signInWithFireBaseMail } from "../auth";
 
 import googleIcon from "../images/google.png";
 import facebookIcon from "../images/facebook.png";
@@ -12,7 +13,7 @@ import twitterIcon from "../images/twitter.png";
 
 function Signin(props) {
 	const handleLoginClick = async (provider) => {
-		signInWithFireBase(provider);
+		signInWithFireBaseSocial(provider);
 	};
 
 	return (
@@ -47,7 +48,11 @@ function Signin(props) {
 					<div className='right'>
 						<input type='text' placeholder='Username' />
 						<input type='text' placeholder='Password' />
-						<button className='submit'>Signin</button>
+						<button
+							className='submit'
+							onClick={() => handleLoginClick(twitterProvider)}>
+							Signin
+						</button>
 					</div>
 				</div>
 			</div>
