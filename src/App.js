@@ -1,6 +1,7 @@
 // IMPORTING EXTERNAL DIPENDECIES
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
+
 // IMPORTING COMPONENTS
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -13,31 +14,78 @@ import "./pages/home.css";
 import "./pages/signin.css";
 import "./components/navbar.css";
 //FIREBASE IMPORTS
+import { useAuthState } from "./auth";
 
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-
-const auth = getAuth();
-let thisUser;
-
-onAuthStateChanged(auth, (user) => {
-	if (user) {
-		// User is signed in, see docs for a list of available properties
-		// https://firebase.google.com/docs/reference/js/firebase.User
-		thisUser = user;
-	}
-});
 function App() {
-	return (
+	let currentUser = useAuthState();
+	console.log(currentUser);
+	return currentUser ? (
 		<>
-			<div>
-				<Navbar />
-				<Routes>
-					<Route path='/' element={<Home />}></Route>
-					{thisUser ? (
-						<Route
-							path='/course/:id'
-							element={thisUser ? <Course /> : <Navigate to='/Signin' />}
-						/>
+			<Navbar />
+			<Routes>
+				<Route exact path='/' element={<Home />} />
+				<Route path='/Signup' element={<Home />} />
+				<Route path='/Signin' element={<Home />} />
+				<Route path='/course/:id' element={<Course />} />
+			</Routes>
+		</>
+	) : (
+		<>
+			<Navbar />
+			<Routes>
+				<Route path='/' element={<Home />} />
+				<Route path='/Signin' element={<Signin />} />
+				<Route path='/Signup' element={<Signup />} />
+				<Route path='/course/:id' element={<Signin />} />
+			</Routes>
+		</>
+	);
+}
+
+export default App;
+
+/*
+	if (currentUser) {
+		return (
+			<>
+				<div>
+					<Navbar />
+					<Routes>
+						<Route path='/' element={<Home />}></Route>
+						<Route path='/Signup' element={<Home />} />
+						<Route path='/Signin' element={<Home />} />
+						<Route path='/course/:id' element={<Course />} />
+					</Routes>
+				</div>
+			</>
+		);
+	} else {
+		return (
+			<>
+				<div>
+					<Navbar />
+					<Routes>
+						<Route path='/' element={<Home />}></Route>
+						<Route path='/Signup' element={<Signup />} />
+						<Route path='/Signin' element={<Signin />} />
+						<Route path='/course/:id' element={<Navigate to='/Signin' />} />
+					</Routes>
+				</div>
+			</>
+		);
+	}
+}
+
+
+/*{currentUser ? (
+						<>
+							<Route
+								path='/course/:id'
+								element={thisUser ? <Course /> : <Navigate to='/Signin' />}
+							/>
+							<Route path='/Signin' element={<Navigate to='/Signin' />} />
+							<Route path='/Signup' element={<Navigate to='/Signin' />} />
+						</>
 					) : (
 						<>
 							<Route
@@ -53,11 +101,4 @@ function App() {
 								element={thisUser ? <Course /> : <Navigate to='/Signin' />}
 							/>
 						</>
-					)}
-				</Routes>
-			</div>
-		</>
-	);
-}
-
-export default App;
+					)}*/

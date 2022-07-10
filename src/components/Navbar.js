@@ -1,26 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { firebase } from "../config/firebase";
-
+import firebase from "../config/firebase";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { useAuthState } from "../auth";
 
 const auth = getAuth();
-let thisUser;
-
-onAuthStateChanged(auth, (user) => {
-	if (user) {
-		// User is signed in, see docs for a list of available properties
-		// https://firebase.google.com/docs/reference/js/firebase.User
-		thisUser = user;
-	}
-});
 
 function Navbar() {
-	const isLoginPage = false;
-
+	let currentUser = useAuthState();
+	const isEntrancePage = false;
 	let photo = "https://picsum.photos/200/300";
-	if (thisUser) {
-		photo = thisUser.photoURL;
+	if (currentUser) {
+		console.log(currentUser.photoURL);
+		fetch(currentUser.photoURL).then((res) => console.log(res));
+		photo = currentUser.photoURL;
 	}
 
 	const logout = () => {
@@ -32,7 +25,7 @@ function Navbar() {
 				console.log(error);
 			});
 	};
-
+	console.log(currentUser);
 	return (
 		<div className='navbar'>
 			<span className='logo'>
@@ -40,17 +33,17 @@ function Navbar() {
 					NBTP
 				</Link>
 			</span>
-			{thisUser ? (
+			{currentUser ? (
 				<ul className='navList'>
 					<li className='listItem'>
 						<img src={photo} alt='logo' className='avatar' />
 					</li>
-					<li className='listItem'>{thisUser.displayName}</li>
+					<li className='listItem'>{currentUser.displayName}</li>
 					<li className='listItem' onClick={logout}>
 						Logout
 					</li>
 				</ul>
-			) : isLoginPage ? (
+			) : isEntrancePage ? (
 				<span></span>
 			) : (
 				<ul className='navList'>

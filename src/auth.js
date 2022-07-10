@@ -1,27 +1,25 @@
+import React, { useState, useEffect } from "react";
 import {
-	getAuth,
 	signInWithPopup,
 	createUserWithEmailAndPassword,
+	onAuthStateChanged,
 } from "firebase/auth";
 
-const auth = getAuth();
+import auth from "../src/config/firebase";
 
-const signInWithFireBaseSocial = (provider) => {
+export const signInWithFireBaseSocial = (provider) => {
 	signInWithPopup(auth, provider)
 		.then((result) => {
 			// The signed-in user info.
 			const user = result.user;
 			// ...
-			console.log(user);
 		})
 		.catch((error) => {
 			console.log(error);
 		});
 };
 
-export { signInWithFireBaseSocial };
-
-const signInWithFireBaseMail = (email, password) => {
+export const signInWithFireBaseMail = (email, password) => {
 	createUserWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
 			// Signed in
@@ -35,4 +33,13 @@ const signInWithFireBaseMail = (email, password) => {
 		});
 };
 
-export { signInWithFireBaseMail };
+export function useAuthState() {
+	const [currentUser, setCurrentUser] = useState();
+
+	useEffect(() => {
+		const unsub = onAuthStateChanged(auth, (user) => setCurrentUser(user));
+		return unsub;
+	}, []);
+
+	return currentUser;
+}

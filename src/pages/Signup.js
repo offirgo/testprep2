@@ -14,7 +14,6 @@ import twitterIcon from "../images/twitter.png";
 function Signup(props) {
 	const handleLoginClick = async (provider) => {
 		const res = await signInWithFireBaseSocial(provider);
-		console.log(res);
 	};
 
 	return (
