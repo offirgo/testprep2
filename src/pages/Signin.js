@@ -1,21 +1,38 @@
 import React from "react";
-
+import { useState } from "react";
 import { googleProvider } from "../config/authMethods";
 import { fabebookProvider } from "../config/authMethods";
 import { twitterProvider } from "../config/authMethods";
 
-import { signInWithFireBaseSocial } from "../auth";
-import { signInWithFireBaseMail } from "../auth";
+import { signInWithFireBaseSocial, signinWithFireBaseMail } from "../auth";
 
 import googleIcon from "../images/google.png";
 import facebookIcon from "../images/facebook.png";
 import twitterIcon from "../images/twitter.png";
 
-function Signin(props) {
+function Signup(props) {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [passwordMessage, setPasswordMessage] = useState("");
+
 	const handleLoginClick = async (provider) => {
-		signInWithFireBaseSocial(provider);
+		const res = await signInWithFireBaseSocial(provider);
 	};
 
+	const handleEmailChange = (e) => {
+		setPasswordMessage("");
+		setEmail(e.target.value);
+	};
+
+	const handlePasswordChange = (e) => {
+		setPasswordMessage("");
+		setPassword(e.target.value);
+	};
+
+	const handleEmailSigninWithFirebase = (e) => {
+		e.preventDefault();
+		signinWithFireBaseMail(email, password, setPasswordMessage);
+	};
 	return (
 		<>
 			<div className='loginPage'>
@@ -46,13 +63,39 @@ function Signin(props) {
 						<div className='or'> OR </div>
 					</div>
 					<div className='right'>
-						<input type='text' placeholder='Username' />
-						<input type='text' placeholder='Password' />
-						<button
-							className='submit'
-							onClick={() => handleLoginClick(twitterProvider)}>
-							Signin
-						</button>
+						<div id='error'></div>
+						<form id='signupForm'>
+							<div>
+								<input
+									name='name'
+									type='email'
+									placeholder='email'
+									value={email}
+									onChange={handleEmailChange}
+									required
+								/>
+							</div>
+							<div>
+								<input
+									id='password'
+									name='password'
+									type='password'
+									placeholder='Password'
+									value={password}
+									onChange={handlePasswordChange}
+									required
+								/>
+							</div>
+							<div>
+								<button
+									className='submit'
+									type='submit'
+									onClick={handleEmailSigninWithFirebase}>
+									Signin
+								</button>
+							</div>
+							<div className='errorMessage'>{passwordMessage}</div>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -60,4 +103,4 @@ function Signin(props) {
 	);
 }
 
-export default Signin;
+export default Signup;

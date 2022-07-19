@@ -23,6 +23,15 @@
 	display:flex;  
 	flex-direction:column;
 	align-items:center;
+	justify-content:center;
+	
+}
+#signupForm{
+	flex:1;
+	display:flex;  
+	flex-direction:column;
+	align-items:center;
+	justify-content:center;
 }
 
 .center{
@@ -92,17 +101,19 @@ input{
 	width:200px;
 	padding: 15px 20px;
 	margin-bottom: 20px;
+	text-align: center;
 }
 
 .submit{
 	width:200px;
 	font-weight: bold;
 	border:none;
-	padding:15px;
+	padding: 15px 20px;
 	border-radius:5px;
 	cursor: pointer;
 	background-color:#286086;
 	color:white;
+	text-align: center;
 
 	
 }
@@ -113,6 +124,10 @@ input{
 	color: lightgray;
 }
 
+.errorMessage{
+	padding: 5px;
+	margin:5px;
+}
 @media screen and (max-width: 992px) {
 	.wrapper {
 		width: 65%;
@@ -135,6 +150,7 @@ input{
 	
 	  .right {
 		padding: 20px;
+		
 	  }
 	
 	  .line {

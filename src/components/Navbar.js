@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import firebase from "../config/firebase";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import { useAuthState } from "../auth";
 
 const auth = getAuth();
@@ -10,22 +9,19 @@ function Navbar() {
 	let currentUser = useAuthState();
 	const isEntrancePage = false;
 	let photo = "https://picsum.photos/200/300";
-	if (currentUser) {
-		console.log(currentUser.photoURL);
-		fetch(currentUser.photoURL).then((res) => console.log(res));
+	if (currentUser && currentUser.photoURL) {
 		photo = currentUser.photoURL;
 	}
 
 	const logout = () => {
 		signOut(auth)
 			.then(() => {
-				console.log("user logged out");
+				let bla = 5;
 			})
 			.catch((error) => {
-				console.log(error);
+				let bla = 10;
 			});
 	};
-	console.log(currentUser);
 	return (
 		<div className='navbar'>
 			<span className='logo'>
@@ -36,9 +32,16 @@ function Navbar() {
 			{currentUser ? (
 				<ul className='navList'>
 					<li className='listItem'>
-						<img src={photo} alt='logo' className='avatar' />
+						<img
+							src={photo}
+							referrerPolicy='no-referrer'
+							alt='logo'
+							className='avatar'
+						/>
 					</li>
-					<li className='listItem'>{currentUser.displayName}</li>
+					<li className='listItem'>
+						{currentUser.displayName || currentUser.email}
+					</li>
 					<li className='listItem' onClick={logout}>
 						Logout
 					</li>

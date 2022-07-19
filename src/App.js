@@ -18,7 +18,6 @@ import { useAuthState } from "./auth";
 
 function App() {
 	let currentUser = useAuthState();
-	console.log(currentUser);
 	return currentUser ? (
 		<>
 			<Navbar />
