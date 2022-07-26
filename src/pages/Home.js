@@ -6,13 +6,12 @@ import { CoursesContext } from "../index";
 
 const Home = () => {
 	let courses = useContext(CoursesContext);
-	let coursesJson = JSON.stringify(courses);
-	console.log(coursesJson);
 
+	let coursesJson = JSON.stringify(courses);
 	!localStorage.getItem("courses")
 		? localStorage.setItem("courses", coursesJson)
 		: (courses = JSON.parse(localStorage.getItem("courses")));
-	console.log(courses);
+
 	return (
 		<>
 			<div className='home'>

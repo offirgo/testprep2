@@ -3,12 +3,9 @@ import { googleProvider } from "../config/authMethods";
 import { fabebookProvider } from "../config/authMethods";
 import { twitterProvider } from "../config/authMethods";
 import { useAuthState } from "../auth";
+import { images } from "../backend/firebase/courseData";
 
 import { signInWithFireBaseSocial, signUpWithFireBaseMail } from "../auth";
-
-import googleIcon from "../images/google.png";
-import facebookIcon from "../images/facebook.png";
-import twitterIcon from "../images/twitter.png";
 
 const strongPassword = (email, password) => {
 	const capsLetterCheck = /[A-Z]/.test(password);
@@ -19,7 +16,12 @@ const strongPassword = (email, password) => {
 };
 
 function Signup(props) {
+	const googleIcon = images[0]["logos"]["google"];
+	const facebookIcon = images[0]["logos"]["facebook"];
+	const twitterIcon = images[0]["logos"]["twitter"];
+
 	let currentUser = useAuthState();
+
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [passwordMessage, setPasswordMessage] = useState("");
