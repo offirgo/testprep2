@@ -1,8 +1,8 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { googleProvider } from "../config/authMethods";
 import { fabebookProvider } from "../config/authMethods";
 import { twitterProvider } from "../config/authMethods";
+import { useAuthState } from "../auth";
 
 import { signInWithFireBaseSocial, signUpWithFireBaseMail } from "../auth";
 
@@ -19,6 +19,7 @@ const strongPassword = (email, password) => {
 };
 
 function Signup(props) {
+	let currentUser = useAuthState();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [passwordMessage, setPasswordMessage] = useState("");
@@ -47,73 +48,72 @@ function Signup(props) {
 				"Password must be at least 8 characters long and contain one lowercase letter, one uppercase letter and one special character."
 			);
 	};
+
 	return (
-		<>
-			<div className='loginPage'>
-				<h1 className='loginTitle'> Choose your login method </h1>
-				<div className='wrapper'>
-					<div className='left'>
-						<div
-							className='loginButton googleButton'
-							onClick={() => handleLoginClick(googleProvider)}>
-							<img src={googleIcon} alt='google icon' className='icon' />
-							google
-						</div>
-						<div
-							className='loginButton facebookButton'
-							onClick={() => handleLoginClick(fabebookProvider)}>
-							<img src={facebookIcon} alt='facebook icon' className='icon' />
-							facebook
-						</div>
-						<div
-							className='loginButton twitterButton'
-							onClick={() => handleLoginClick(twitterProvider)}>
-							<img src={twitterIcon} alt='twitter icon' className='icon' />
-							twitter
-						</div>
+		<div className='loginPage'>
+			<h1 className='loginTitle'> Choose your login method </h1>
+			<div className='wrapper'>
+				<div className='left'>
+					<div
+						className='loginButton googleButton'
+						onClick={() => handleLoginClick(googleProvider)}>
+						<img src={googleIcon} alt='google icon' className='icon' />
+						google
 					</div>
-					<div className='center'>
-						<div className='line' />
-						<div className='or'> OR </div>
+					<div
+						className='loginButton facebookButton'
+						onClick={() => handleLoginClick(fabebookProvider)}>
+						<img src={facebookIcon} alt='facebook icon' className='icon' />
+						facebook
 					</div>
-					<div className='right'>
-						<div id='error'></div>
-						<form id='signupForm'>
-							<div>
-								<input
-									name='name'
-									type='email'
-									placeholder='email'
-									value={email}
-									onChange={handleEmailChange}
-									required
-								/>
-							</div>
-							<div>
-								<input
-									id='password'
-									name='password'
-									type='password'
-									placeholder='Password'
-									value={password}
-									onChange={handlePasswordChange}
-									required
-								/>
-							</div>
-							<div>
-								<button
-									className='submit'
-									type='submit'
-									onClick={handleEmailSignupWithFirebase}>
-									Signup
-								</button>
-							</div>
-							<div className='errorMessage'>{passwordMessage}</div>
-						</form>
+					<div
+						className='loginButton twitterButton'
+						onClick={() => handleLoginClick(twitterProvider)}>
+						<img src={twitterIcon} alt='twitter icon' className='icon' />
+						twitter
 					</div>
 				</div>
+				<div className='center'>
+					<div className='line' />
+					<div className='or'> OR </div>
+				</div>
+				<div className='right'>
+					<div id='error'></div>
+					<form id='signupForm'>
+						<div>
+							<input
+								name='name'
+								type='email'
+								placeholder='email'
+								value={email}
+								onChange={handleEmailChange}
+								required
+							/>
+						</div>
+						<div>
+							<input
+								id='password'
+								name='password'
+								type='password'
+								placeholder='Password'
+								value={password}
+								onChange={handlePasswordChange}
+								required
+							/>
+						</div>
+						<div>
+							<button
+								className='submit'
+								type='submit'
+								onClick={handleEmailSignupWithFirebase}>
+								Signup
+							</button>
+						</div>
+						<div className='errorMessage'>{passwordMessage}</div>
+					</form>
+				</div>
 			</div>
-		</>
+		</div>
 	);
 }
 

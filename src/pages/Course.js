@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import { courses } from "../data";
 import "./course.css";
 
+import { courses } from "../backend/firebase/courseData";
+
 const Course = () => {
+	let [course, setCourse] = useState([]);
 	const location = useLocation();
 	const path = location.pathname.split("/")[2];
-	const course = courses.find((c) => c.id.toString() === path);
-
+	const temp = courses.find((c) => c.name.toString() === path);
+	/*console.log(path);
+	console.log(temp);
+	console.log(courses);
+	console.log(course);
+	*/
 	return (
 		<div className='course'>
 			<img src={course.img} alt='your course' className='courseImg' />

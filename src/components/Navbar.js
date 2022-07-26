@@ -14,13 +14,7 @@ function Navbar() {
 	}
 
 	const logout = () => {
-		signOut(auth)
-			.then(() => {
-				let bla = 5;
-			})
-			.catch((error) => {
-				let bla = 10;
-			});
+		signOut(auth);
 	};
 	return (
 		<div className='navbar'>

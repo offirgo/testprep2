@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -15,10 +16,13 @@ const firebaseConfig = {
 	messagingSenderId: "182212111020",
 	appId: "1:182212111020:web:603f235b3d3f8b595e0d09",
 	measurementId: "G-0PCEC85E97",
+	databaseURL:
+		"https://testprep2-default-rtdb.europe-west1.firebasedatabase.app",
 };
 
 // Initialize Firebase
 export const firebaseApp = initializeApp(firebaseConfig);
 const firebaseAuth = getAuth(firebaseApp);
+export const firebaseDb = getFirestore(firebaseApp);
 // Initialize the FirebaseUI Widget using Firebase.
 export default firebaseAuth;

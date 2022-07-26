@@ -29,7 +29,6 @@ export function signUpWithFireBaseMail(email, password, setPasswordMessage) {
 		.then((userCredential) => {
 			// Signed in
 			currentUser = userCredential.user;
-			console.log("in");
 			// ...
 		})
 		.catch((error) => {
