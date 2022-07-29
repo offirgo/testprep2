@@ -22,9 +22,6 @@ export const signInWithFireBaseSocial = (provider) => {
 
 export function signUpWithFireBaseMail(email, password, setPasswordMessage) {
 	let currentUser;
-	console.log(auth);
-	console.log(email);
-	console.log(password);
 	createUserWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
 			// Signed in

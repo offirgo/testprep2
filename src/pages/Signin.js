@@ -17,6 +17,7 @@ function Signup(props) {
 
 	const handleLoginClick = async (provider) => {
 		const res = await signInWithFireBaseSocial(provider);
+		
 	};
 
 	const handleEmailChange = (e) => {
