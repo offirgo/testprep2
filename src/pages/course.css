@@ -23,3 +23,13 @@
     line-height: 24px;
     font-weight: 200;
 }
+.syllabusCardsContainer{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: minmax(300px,auto);
+    
+    background-color:yellow;
+    width: 90%;
+    height:90%;
+    
+}
