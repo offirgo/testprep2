@@ -1,17 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
 import "./lessonTopicsCard.css";
 
-const LessonTopicsCard = ({ lessonTopics, lessonNumber }) => {
+const LessonTopicsCard = ({ lessonTopics, lessonNumber, courseName }) => {
 	let LessonNumberText = "Lesson " + lessonNumber;
 	if (lessonNumber === 0) {
 		LessonNumberText = "Pre-course";
 	}
-	console.log(typeof lessonNumber);
-	console.log(LessonNumberText);
 	let topicsPageName = lessonTopics.map((topic) => topic.replace(/ /g, "_"));
-	console.log(topicsPageName);
 	return (
 		<div className='LessonSyllabusCard'>
 			<div className='lessonNumber'>{LessonNumberText}</div>
@@ -19,7 +15,7 @@ const LessonTopicsCard = ({ lessonTopics, lessonNumber }) => {
 				{lessonTopics.map((topic, index) => (
 					<>
 						<div className='lessonTopic' key={index}>
-							<Link to={`/Lesson/${topicsPageName[index]}`}>
+							<Link to={`/lesson/${courseName}/${topicsPageName[index]}`}>
 								{index + 1}.{topic}
 							</Link>
 						</div>
@@ -29,5 +25,4 @@ const LessonTopicsCard = ({ lessonTopics, lessonNumber }) => {
 		</div>
 	);
 };
-
 export default LessonTopicsCard;

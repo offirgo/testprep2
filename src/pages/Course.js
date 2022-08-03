@@ -10,7 +10,6 @@ const Course = () => {
 	const path = location.pathname.split("/")[2];
 	let course = courses.find((c) => c.name.toString() === path);
 	let topicsByLessonArray = course.topicsByLessonArray;
-
 	return (
 		<div className='course'>
 			<img src={course.image} alt={course.name} className='courseImg' />
@@ -21,6 +20,7 @@ const Course = () => {
 							key={index}
 							lessonTopics={Object.values(lessonTopicsMap)}
 							lessonNumber={index}
+							courseName={course.name}
 						/>
 					</>
 				))}

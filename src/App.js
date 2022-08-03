@@ -1,13 +1,14 @@
 // IMPORTING EXTERNAL DIPENDECIES
-import React, { useState, useContext } from "react";
+import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 
-// IMPORTING COMPONENTS
+// IMPORTING COMPONENTS and pages
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import Course from "./pages/Course";
+import Lesson from "./pages/Lesson";
 // IMPORT STYLES
 import "./app.css";
 import "./pages/home.css";
@@ -15,11 +16,9 @@ import "./pages/signin.css";
 import "./components/navbar.css";
 //FIREBASE IMPORTS
 import { useAuthState } from "./auth";
-import { CoursesContext } from "./index";
 
 function App() {
 	let currentUser = useAuthState();
-	const courses = useContext(CoursesContext);
 	return currentUser ? (
 		<>
 			<Navbar />
@@ -28,6 +27,7 @@ function App() {
 				<Route path='/Signup' element={<Navigate to='/' />} />
 				<Route path='/Signin' element={<Navigate to='/' />} />
 				<Route path='/course/:id' element={<Course />} />
+				<Route path='/lesson/:id/:id' element={<Lesson />} />
 			</Routes>
 		</>
 	) : (
@@ -38,6 +38,7 @@ function App() {
 				<Route path='/Signin' element={<Signin />} />
 				<Route path='/Signup' element={<Signup />} />
 				<Route path='/course/:id' element={<Signin />} />
+				<Route path='/lesson/:id' element={<Signin />} />
 			</Routes>
 		</>
 	);

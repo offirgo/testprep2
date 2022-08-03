@@ -19,5 +19,15 @@ getDocs(collection(firebaseDb, "images")).then((res) => {
 	});
 });
 
+let gmatLessonsSnapshot;
+let gmatLessons = [];
+getDocs(collection(firebaseDb, "gmatLessons")).then((res) => {
+	gmatLessonsSnapshot = res;
+	gmatLessonsSnapshot.docs.forEach((doc) => {
+		gmatLessons.push({ ...doc.data(), id: doc.id });
+	});
+});
+
 export { courses };
 export { images };
+export { gmatLessons };
