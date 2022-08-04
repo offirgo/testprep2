@@ -9,24 +9,27 @@ const LessonContent = ({
 	nextTopic,
 	currentTopicName,
 	currentTopicContent,
+	courseName,
 }) => {
-	const fraction = `$$ \\frac{1}{2} $$`;
 	return (
 		<div className='lessonContainer'>
-			<Latex>{fraction}</Latex>
-			<h1 className='title'> {currentTopicName}</h1>
-			<p className='lessonCard'>{currentTopicContent}</p>
-			{prevTopic ? (
-				<button className='moveButton'>{prevTopic}</button>
-			) : (
-				<div></div>
-			)}
-			<div>link to syllabus</div>
-			{nextTopic ? (
-				<button className='moveButton'>{nextTopic}</button>
-			) : (
-				<div></div>
-			)}
+			<h1 className='lessonTitle'> {currentTopicName}</h1>
+			<Latex className='lessonCard'>{currentTopicContent}</Latex>
+			<div className='navigationButtons'>
+				{prevTopic ? (
+					<button className='moveButton '>{prevTopic}</button>
+				) : (
+					<button className='moveButton'>{prevTopic}</button>
+				)}
+				<Link to={`/course/${courseName}`}>link to syllabus</Link>
+				{nextTopic ? (
+					<>
+						<button className='moveButton '>{nextTopic}</button>
+					</>
+				) : (
+					<div> </div>
+				)}
+			</div>
 		</div>
 	);
 };

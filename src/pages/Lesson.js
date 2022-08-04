@@ -7,6 +7,7 @@ const Lesson = () => {
 	const lessons = gmatLessons[0];
 	const location = useLocation();
 
+	const courseName = location.pathname.split("/")[2];
 	const currentTopicName = location.pathname.split("/")[3];
 	const currentTopicNameWS = currentTopicName.replace(/_/g, " ");
 
@@ -29,7 +30,8 @@ const Lesson = () => {
 				prevTopic={prevTopic}
 				nextTopic={nextTopic}
 				currentTopicName={currentTopicNameWS}
-				currentTopicContent={currentTopicContent}></LessonContent>
+				currentTopicContent={currentTopicContent}
+				courseName={courseName}></LessonContent>
 		</>
 	);
 };
