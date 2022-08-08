@@ -17,14 +17,22 @@ const LessonContent = ({
 			<Latex className='lessonCard'>{currentTopicContent}</Latex>
 			<div className='navigationButtons'>
 				{prevTopic ? (
-					<button className='moveButton '>{prevTopic}</button>
+					<Link>
+						<button className='moveButton'>{prevTopic}</button>
+					</Link>
 				) : (
 					<button className='moveButton'>{prevTopic}</button>
 				)}
-				<Link to={`/course/${courseName}`}>link to syllabus</Link>
+				<Link className='syllabusLink' to={`/course/${courseName}`}>
+					link to syllabus
+				</Link>
 				{nextTopic ? (
 					<>
-						<button className='moveButton '>{nextTopic}</button>
+						<button className='moveButton'>
+							<Link className='moveLink' to={`/course/${nextTopic}`}>
+								{nextTopic}
+							</Link>
+						</button>
 					</>
 				) : (
 					<div> </div>

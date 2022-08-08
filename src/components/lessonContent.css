@@ -31,3 +31,13 @@
 
 }
 
+.moveLink:link { text-decoration: none; color:white}
+.moveLink:visited { text-decoration: none; color:white}
+.moveLink:hover { text-decoration: none; color:white}
+.moveLink:active { text-decoration: none; color:white}
+
+
+.syllabusLink:link { text-decoration: none; color:black}
+.syllabusLink:visited { text-decoration: none; color:black}
+.syllabusLink:hover { text-decoration: none; color:black}
+.syllabusLink:active { text-decoration: none; color:black}

@@ -15,7 +15,9 @@ const LessonTopicsCard = ({ lessonTopics, lessonNumber, courseName }) => {
 				{lessonTopics.map((topic, index) => (
 					<>
 						<div className='lessonTopic' key={index}>
-							<Link to={`/lesson/${courseName}/${topicsPageName[index]}`}>
+							<Link
+								className='lessonTopicsLink'
+								to={`/lesson/${courseName}/${topicsPageName[index]}`}>
 								{index + 1}.{topic}
 							</Link>
 						</div>
