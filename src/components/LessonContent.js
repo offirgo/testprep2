@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./lessonContent.css";
-
 var Latex = require("react-latex");
 
 const LessonContent = ({
@@ -11,6 +10,7 @@ const LessonContent = ({
 	currentTopicContent,
 	courseName,
 }) => {
+	console.log(nextTopic);
 	return (
 		<div className='lessonContainer'>
 			<h1 className='lessonTitle'> {currentTopicName}</h1>
@@ -35,7 +35,7 @@ const LessonContent = ({
 						</button>
 					</>
 				) : (
-					<div> </div>
+					<button className='moveButton'>{prevTopic}</button>
 				)}
 			</div>
 		</div>

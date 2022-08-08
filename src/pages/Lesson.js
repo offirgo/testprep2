@@ -1,28 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import LessonContent from "../components/LessonContent";
-import { gmatLessons } from "../backend/firebase/courseData";
+import { getCourseLessons } from "../backend/firebase/courseData";
 
 const Lesson = () => {
-	const lessons = gmatLessons[0];
+	let [lessons, setLessons] = useState([]);
+	let prevTopic;
+	let nextTopic;
+	let currentTopicNameWS;
+	let currentTopicContent;
+
 	const location = useLocation();
-
 	const courseName = location.pathname.split("/")[2];
-	const currentTopicName = location.pathname.split("/")[3];
-	const currentTopicNameWS = currentTopicName.replace(/_/g, " ");
+	if (lessons.length === 0) {
+		getCourseLessons(courseName, setLessons);
+	} else {
+		const currentTopicName = location.pathname.split("/")[3];
+		currentTopicNameWS = currentTopicName.replace(/_/g, " ");
 
-	const topicsNamesArray = lessons.topicsNames;
-	const topicsContentMap = lessons.lessons_content;
+		const topicsNamesArray = lessons.topicsNames;
+		const topicsContentMap = lessons.lessons_content;
 
-	let currentTopicKey = topicsNamesArray.findIndex(
-		(element) => element === currentTopicNameWS
-	);
-	let nextTopicKey = currentTopicKey + 1;
-	let prevTopicKey = currentTopicKey - 1;
-	let nextTopic = topicsNamesArray[nextTopicKey];
-	let prevTopic = topicsNamesArray[prevTopicKey];
+		let currentTopicKey = topicsNamesArray.findIndex(
+			(element) => element === currentTopicNameWS
+		);
+		let nextTopicKey = currentTopicKey + 1;
+		let prevTopicKey = currentTopicKey - 1;
+		nextTopic = topicsNamesArray[nextTopicKey];
+		prevTopic = topicsNamesArray[prevTopicKey];
 
-	let currentTopicContent = topicsContentMap[currentTopicNameWS];
+		currentTopicContent = topicsContentMap[currentTopicNameWS];
+	}
 
 	return (
 		<>
