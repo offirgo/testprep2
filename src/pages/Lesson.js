@@ -12,7 +12,7 @@ const Lesson = () => {
 
 	const location = useLocation();
 	const courseName = location.pathname.split("/")[2];
-	if (lessons.length === 0) {
+	if (lessons && lessons.length === 0) {
 		getCourseLessons(courseName, setLessons);
 	} else {
 		const currentTopicName = location.pathname.split("/")[3];

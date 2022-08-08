@@ -33,18 +33,21 @@ const getCourseLessons = async (courseName, setLessons) => {
 	});
 };
 
-let lessonContentSnapshot;
-let lessonContent = [];
-let topicToGet = "lessonTopicRatios";
+const getLessonContent = async (lessonNameToGet, setContent) => {
+	let lessonContentSnapshot;
+	let contents = [];
 
-getDocs(collection(firebaseDb, topicToGet)).then((res) => {
-	lessonContentSnapshot = res;
-	lessonContentSnapshot.docs.forEach((doc) => {
-		lessonContent.push({ ...doc.data(), id: doc.id });
+	await getDocs(collection(firebaseDb, "lessonsContents")).then((res) => {
+		lessonContentSnapshot = res;
+		lessonContentSnapshot.docs.forEach((doc) => {
+			contents.push({ ...doc.data(), id: doc.id });
+		});
+		contents = contents[0];
+		setContent(contents[lessonNameToGet]);
 	});
-});
+};
 
 export { courses };
 export { images };
 export { getCourseLessons };
-export { lessonContent };
+export { getLessonContent };

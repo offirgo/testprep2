@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./lessonContent.css";
+import { getLessonContent } from "../backend/firebase/courseData";
 var Latex = require("react-latex");
 
 const LessonContent = ({
@@ -10,11 +11,17 @@ const LessonContent = ({
 	currentTopicContent,
 	courseName,
 }) => {
-	console.log(nextTopic);
+	let [content, setContent] = useState([]);
+	if (!content || (content && content.length === 0)) {
+		getLessonContent(currentTopicContent, setContent);
+		content = [
+			"asdfddddddddddddddddddddddddddddddddddddddddddddddddddddddasdf",
+		];
+	}
 	return (
 		<div className='lessonContainer'>
 			<h1 className='lessonTitle'> {currentTopicName}</h1>
-			<Latex className='lessonCard'>{currentTopicContent}</Latex>
+			<Latex className='lessonCard'>{content[0]}</Latex>
 			<div className='navigationButtons'>
 				{prevTopic ? (
 					<Link>
