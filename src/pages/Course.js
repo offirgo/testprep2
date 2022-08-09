@@ -1,18 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import LessonTopicsCard from "../components/LessonTopicsCard";
 import "./course.css";
 
-import { courses } from "../backend/firebase/courseData";
+import { getCoursesFromFirebase } from "../backend/firebase/courseData";
 
 const Course = () => {
+	let [courses, setCourses] = useState([]);
+
+	let course;
+	let topicsByLessonArray = [];
+	let image;
+	let name;
+
 	const location = useLocation();
 	const path = location.pathname.split("/")[2];
-	let course = courses.find((c) => c.name.toString() === path);
-	let topicsByLessonArray = course.topicsByLessonArray;
+	if (!courses || courses.length === 0) {
+		getCoursesFromFirebase(setCourses);
+	} else {
+		course = courses.find((c) => c.name.toString() === path);
+		topicsByLessonArray = course.topicsByLessonArray;
+		image = course.image;
+		name = course.name;
+	}
 	return (
 		<div className='course'>
-			<img src={course.image} alt={course.name} className='courseImg' />
+			<img src={image} alt={name} className='courseImg' />
 			<div className='syllabusCardsContainer'>
 				{topicsByLessonArray.map((lessonTopicsMap, index) => (
 					<>

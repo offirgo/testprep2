@@ -1,14 +1,18 @@
 import { firebaseDb } from "../../config/firebase";
 import { collection, getDocs } from "firebase/firestore";
 
-let coursesQuerySnapshot;
-let courses = [];
-getDocs(collection(firebaseDb, "courses")).then((res) => {
-	coursesQuerySnapshot = res;
-	coursesQuerySnapshot.docs.forEach((doc) => {
-		courses.push({ ...doc.data(), id: doc.id });
+const getCoursesFromFirebase = async (setCourses) => {
+	let coursesQuerySnapshot;
+	let courses = [];
+
+	await getDocs(collection(firebaseDb, "courses")).then((res) => {
+		coursesQuerySnapshot = res;
+		coursesQuerySnapshot.docs.forEach((doc) => {
+			courses.push({ ...doc.data(), id: doc.id });
+		});
+		setCourses(courses);
 	});
-});
+};
 
 let imagesQuerySnapshot;
 let images = [];
@@ -47,7 +51,7 @@ const getLessonContent = async (lessonNameToGet, setContent) => {
 	});
 };
 
-export { courses };
+export { getCoursesFromFirebase };
 export { images };
 export { getCourseLessons };
 export { getLessonContent };

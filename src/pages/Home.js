@@ -1,17 +1,14 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
+import { getCoursesFromFirebase } from "../backend/firebase/courseData";
 
 import Card from "../components/Card";
 import "../pages/home.css";
-import { CoursesContext } from "../index";
 
 const Home = () => {
-	let courses = useContext(CoursesContext);
-
-	let coursesJson = JSON.stringify(courses);
-	!localStorage.getItem("courses")
-		? localStorage.setItem("courses", coursesJson)
-		: (courses = JSON.parse(localStorage.getItem("courses")));
-
+	let [courses, setCourses] = useState([]);
+	if (!courses || courses.length === 0) {
+		getCoursesFromFirebase(setCourses);
+	}
 	return (
 		<>
 			<div className='home'>
