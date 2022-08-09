@@ -1,5 +1,6 @@
 import { firebaseDb } from "../../config/firebase";
 import { collection, getDocs } from "firebase/firestore";
+import firebaseContentToHtml from "../../utilities/firebaseContentToHtml";
 
 const getCoursesFromFirebase = async (setCourses) => {
 	let coursesQuerySnapshot;
@@ -47,7 +48,9 @@ const getLessonContent = async (lessonNameToGet, setContent) => {
 			contents.push({ ...doc.data(), id: doc.id });
 		});
 		contents = contents[0];
-		setContent(contents[lessonNameToGet]);
+		let contentsArray = firebaseContentToHtml(contents[lessonNameToGet]);
+		console.log(contentsArray);
+		setContent(contentsArray);
 	});
 };
 
